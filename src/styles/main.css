@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+.ggre100-container {
+  display: flex;
+  height: 100%;
+}
+
+.ggre100-column-left, .ggre100-column-right {
+  flex: 1;
+  height: 100%;
+}
+
+.ggre100-column-left {
+}
+
+.ggre100-column-left #source-editor {
+  height: 400px;
+}
+
+.ggre100-column-left #style-editor {
+  height: 400px;
+}
+
+.ggre100-column-right {
+}
+
+.ggre100-column-right .row {
+  height: 100%;
+}
+
+.ggre100-column-right .full-iframe {
+  line-height: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+}

@@ -1,7 +1,8 @@
+const { ProvidePlugin } = require('webpack');
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BundleAnalyzerPlugin =
-  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -10,26 +11,23 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name][contenthash].js',
-    clean: true,
-    assetModuleFilename: '[name][ext]',
+    filename: 'app.js'
   },
   devtool: 'source-map',
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-    },
     port: 3000,
     open: true,
     hot: true,
-    compress: true,
-    historyApiFallback: true,
   },
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ],
+      },
+      {
+        test: /\.ttf$/,
+        type: 'asset/resource'
       },
       {
         test: /\.js$/,
@@ -37,7 +35,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: [ '@babel/preset-env' ],
           },
         },
       },
@@ -48,11 +46,24 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Webpack App',
-      filename: 'index.html',
-      template: 'src/template.html',
+    new ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
-    new BundleAnalyzerPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'public',
+          to: '',
+        },
+      ],
+    }),
+    new MonacoWebpackPlugin({
+      languages: [ 'javascript', 'typescript' ], // 필요한 언어만 추가 가능
+    }),
   ],
 }

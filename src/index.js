@@ -1,12 +1,6 @@
-// DEMO JOKE APP
-import generateJoke from './generateJoke'
-import './styles/main.scss'
-import laughing from './assets/laughing.svg'
+import './styles/main.css'
+import App from './app';
 
-const laughImg = document.getElementById('laughImg')
-laughImg.src = laughing
+window.onload = App;
 
-const jokeBtn = document.getElementById('jokeBtn')
-jokeBtn.addEventListener('click', generateJoke)
 
-generateJoke()
